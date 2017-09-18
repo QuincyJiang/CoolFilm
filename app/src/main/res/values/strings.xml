@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">FilmChina</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="action_settings">Settings</string>
+    <string name="section_format">Hello World from section: %1$d</string>
+    <string name="submit_artical">投稿作品</string>
+    <string name="love_shot_film">爱拍照</string>
+    <string name="list_title_demo">藏在胶片里的故事@南风里_</string>
+    <string name="list_description_demo">路过那蓝天白云和秋冬春夏 晃动的镜头在GA LA</string>
+    <string name="read_more">查看更多</string>
+    <string name="artical_title">文章详情</string>
+    <string name="error_title">oops……</string>
+    <string name="error_content">看来加载遇到了一点问题 错误信息：</string>
+    <string name="confirm">确定</string>
+    <string name="cancel">取消</string>
+</resources>
