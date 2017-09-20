@@ -13,4 +13,36 @@
     <string name="error_content">看来加载遇到了一点问题 错误信息：</string>
     <string name="confirm">确定</string>
     <string name="cancel">取消</string>
+    <string name="main_page">投稿</string>
+    <string name="love_photos">爱拍照</string>
+    <string name="love_equipment">爱器材</string>
+    <string name="love_life">爱生活</string>
+    <string name="activities">活动</string>
+    <string name="slr">单反</string>
+    <string name="tlr">双反</string>
+    <string name="pocket_cam">口袋机</string>
+    <string name="rangefinder_cam">旁轴机</string>
+    <string name="photos">投稿作品</string>
+    <string name="excellent">菲林精选</string>
+    <string name="tech">Get新技能</string>
+    <string name="love_life_1">入门君</string>
+    <string name="love_life_2">吐槽坛</string>
+    <string name="love_life_3">看电影</string>
+    <string name="title_activity_main2">Main2Activity</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="about_coofilm">关于菲林叔</string>
+    <string name="about_developer">关于开发者</string>
+    <string name="clear_cache">清除缓存</string>
+    <string name="exit">退出</string>
+    <string name="share">分享此应用</string>
+    <string name="about_title"> 本应用为菲林中文的非官方客户端，数据解析自html，开发者是菲林中文的老用户，希望菲林中文越做越好，代码开源在github，欢迎star！</string>
+    <string name="version">当前版本：</string>
+    <string name="about_card2_title">If you liked the app, feel free to contact me.</string>
+    <string name="about_google_play">Rate on Google play</string>
+    <string name="about_email">Feedback by E-mail</string>
+    <string name="about_git_hub">Source code on GitHub</string>
+    <string name="about_email_intent">About:Coofilm</string>
+    <string name="about_not_found_email">Not found email app</string>
 </resources>

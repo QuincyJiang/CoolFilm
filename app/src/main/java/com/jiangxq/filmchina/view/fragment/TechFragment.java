@@ -1,4 +1,4 @@
-package com.jiangxq.filmchina.view;
+package com.jiangxq.filmchina.view.fragment;
 
 import android.app.AlertDialog;
 import android.content.Intent;
@@ -6,7 +6,6 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
 import android.view.View;
 
 import com.bumptech.glide.Glide;
@@ -14,17 +13,13 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.jiangxq.filmchina.R;
 import com.jiangxq.filmchina.adapter.ArticalListAdapter;
 import com.jiangxq.filmchina.base.BaseFragment;
+import com.jiangxq.filmchina.model.TechModel;
 import com.jiangxq.filmchina.model.bean.ArticaItemBean;
 import com.jiangxq.filmchina.presenter.ArticalListContract;
 import com.jiangxq.filmchina.presenter.ArticalListPresenter;
 import com.jiangxq.filmchina.util.CustomLoadMoreView;
-import com.jiangxq.filmchina.util.GlideImageLoader;
 import com.jiangxq.filmchina.util.Utils;
 import com.jiangxq.filmchina.view.activity.ArticalDetailActivity;
-import com.youth.banner.Banner;
-import com.youth.banner.BannerConfig;
-import com.youth.banner.Transformer;
-import com.youth.banner.listener.OnBannerListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,10 +31,10 @@ import static android.support.v7.widget.RecyclerView.SCROLL_STATE_IDLE;
 import static android.support.v7.widget.RecyclerView.SCROLL_STATE_SETTLING;
 
 /**
- * Created by jiangxq170307 on 2017/9/13.
+ * Created by jiangxq170307 on 2017/9/19.
  */
 
-public class ArticalListFragment3 extends BaseFragment implements ArticalListContract.View{
+public class TechFragment extends BaseFragment implements ArticalListContract.View {
     @Bind(R.id.rv_artical_list)
     RecyclerView articalList;
     @Bind(R.id.sr_refresh)
@@ -47,13 +42,9 @@ public class ArticalListFragment3 extends BaseFragment implements ArticalListCon
     private ArticalListAdapter mAdapter;
     private ArticalListPresenter mPresenter;
     private int mPage = 1;
-    List<String> pics = new ArrayList<>();
-    List<String> titles =  new ArrayList<>();
     private List<ArticaItemBean> articalsItem = new ArrayList<>();
     private Boolean isErr = false;
     private int mCurrentCounter;
-    private View bannerView;
-    private Banner banner;
     private AlertDialog dailog;
 
 
@@ -63,21 +54,24 @@ public class ArticalListFragment3 extends BaseFragment implements ArticalListCon
     }
     @Override
     protected void initData() {
-        mPresenter = new ArticalListPresenter(getActivity(),this);
+        mPresenter = new ArticalListPresenter(new TechModel(getContext()),this);
     }
 
     @Override
     protected void initView() {
         initRecyclerView();
-        initBanner();
         initAdapter();
         mPage = 1;
-        initBannerData();
         articalList.setAdapter(mAdapter);
         initListener();
-        mPresenter.loadBanner();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
         mPresenter.loadArtical(mPage);
     }
+
     private void initRecyclerView(){
         if (Utils.getScreenWidthDp(getContext()) >= 1200) {
             final GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), 3);
@@ -92,14 +86,13 @@ public class ArticalListFragment3 extends BaseFragment implements ArticalListCon
     }
     private void initAdapter(){
         mAdapter = new ArticalListAdapter(R.layout.item_artical_list,articalsItem);
-        mAdapter.addHeaderView(bannerView);
         mAdapter.openLoadAnimation(BaseQuickAdapter.SCALEIN);
         mAdapter.setLoadMoreView(new CustomLoadMoreView());
         mAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 Intent intent = new Intent(getActivity(), ArticalDetailActivity.class);
-                intent.putExtra("artical",(ArticaItemBean)adapter.getData().get(position));
+                intent.putExtra("artical",mAdapter.getData().get(position));
                 startActivity(intent);
             }
         });
@@ -118,8 +111,8 @@ public class ArticalListFragment3 extends BaseFragment implements ArticalListCon
                         mAdapter.loadMoreFail();
 
                     }
-            }
-        }},articalList);
+                }
+            }},articalList);
     }
     private void initListener(){
         refresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -131,7 +124,6 @@ public class ArticalListFragment3 extends BaseFragment implements ArticalListCon
                     articalsItem.clear();
                     mAdapter.setNewData(articalsItem);
                     mPresenter.loadArtical(mPage);
-                    initBannerData();
                     mPresenter.loadBanner();
                 }
             }
@@ -153,44 +145,20 @@ public class ArticalListFragment3 extends BaseFragment implements ArticalListCon
 
     @Override
     public void showBanners(final List<ArticaItemBean> banners) {
-        initBannerData();
-        for(ArticaItemBean bannerBean:banners){
-            titles.add(bannerBean.getTitle());
-            pics.add(bannerBean.getPic());
-        }
-        banner.setImages(pics);
-        banner.setBannerTitles(titles);
-        banner.setOnBannerListener(new OnBannerListener() {
-            @Override
-            public void OnBannerClick(int position) {
-                Intent intent = new Intent(getActivity(), ArticalDetailActivity.class);
-                intent.putExtra("artical",banners.get(position));
-                startActivity(intent);
-            }
-        });
-        banner.start();
-        mAdapter.notifyDataSetChanged();
+
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
     }
 
 
-    private void initBannerData(){
-        if(titles!=null&&pics!=null){
-            titles.clear();
-            pics.clear();
-            banner.setImages(pics);
-            banner.setBannerTitles(titles);
-        }
-    }
-    private void initBanner(){
-        bannerView = LayoutInflater.from(getContext()).inflate(R.layout.item_recycler_header,articalList,false);
-        banner =bannerView.findViewById(R.id.banner);
-        banner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR_TITLE_INSIDE);
-        banner.setImageLoader(new GlideImageLoader());
-        banner.setBannerAnimation(Transformer.ZoomOutSlide);
-        banner.isAutoPlay(true);
-        banner.setDelayTime(3000);
-        banner.setIndicatorGravity(BannerConfig.CENTER);
-    }
 
     @Override
     public void showDialog(String msg) {
@@ -209,7 +177,7 @@ public class ArticalListFragment3 extends BaseFragment implements ArticalListCon
                     .setNegativeButton(getString(R.string.cancel), null)
                     .show();
         }else dailog.show();
-            }
+    }
 
 
     @Override
@@ -247,33 +215,32 @@ public class ArticalListFragment3 extends BaseFragment implements ArticalListCon
         @Override
         public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
             super.onScrollStateChanged(recyclerView, newState);
-                switch (newState){
-                    case SCROLL_STATE_IDLE:
-                        try {
-                                 if(getContext() != null) Glide.with(getContext()).resumeRequests();
-                            }
-                        catch (Exception e) {
-                                e.printStackTrace();
-                            }
-                        break;
-                    case SCROLL_STATE_DRAGGING:
-                        try {
-                            if(getContext() != null) Glide.with(getContext()).pauseRequests();
-                            }
-                        catch (Exception e) {
-                            e.printStackTrace();
-                            }
-                        break;
-                    case SCROLL_STATE_SETTLING:
-                        try {
-                            if(getContext() != null) Glide.with(getContext()).pauseRequests();
-                            }
-                        catch (Exception e) {
-                            e.printStackTrace();
-                            }
-                        break;
-                        }
+            switch (newState){
+                case SCROLL_STATE_IDLE:
+                    try {
+                        if(getContext() != null) Glide.with(getContext()).resumeRequests();
                     }
-                };
-
+                    catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    break;
+                case SCROLL_STATE_DRAGGING:
+                    try {
+                        if(getContext() != null) Glide.with(getContext()).pauseRequests();
+                    }
+                    catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    break;
+                case SCROLL_STATE_SETTLING:
+                    try {
+                        if(getContext() != null) Glide.with(getContext()).pauseRequests();
+                    }
+                    catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    break;
+            }
+        }
+    };
 }

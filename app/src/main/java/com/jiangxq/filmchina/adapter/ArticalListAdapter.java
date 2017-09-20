@@ -21,7 +21,6 @@ public class ArticalListAdapter extends BaseQuickAdapter<ArticaItemBean,BaseView
     public ArticalListAdapter(@LayoutRes int layoutResId, @Nullable List<ArticaItemBean> data) {
         super(layoutResId, data);
     }
-
     @Override
     protected void convert(BaseViewHolder helper, ArticaItemBean item) {
         helper.setText(R.id.tv_card_author,item.getAuthor());

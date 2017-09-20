@@ -19,7 +19,7 @@
         <ImageView
             android:id="@+id/img_main_card_1"
             android:layout_width="match_parent"
-            android:layout_height="300dp"
+            android:layout_height="240dp"
             android:adjustViewBounds="true"
             android:scaleType="centerCrop"
             android:layout_alignParentTop="true"
@@ -33,7 +33,7 @@
             android:layout_below="@id/img_main_card_1"
             android:layout_marginEnd="@dimen/card_title_margin"
             android:layout_marginStart="@dimen/card_title_margin"
-            android:layout_marginTop="@dimen/card_title_margin_top"
+            android:layout_marginTop="@dimen/text_margin_very_small"
             android:textColor="@color/finestBlack" />
 
         <TextView
@@ -43,7 +43,7 @@
             android:layout_below="@id/tv_card_main_1_title"
             android:layout_marginEnd="@dimen/card_subtitle_margin"
             android:layout_marginStart="@dimen/card_subtitle_margin"
-            android:layout_marginTop="@dimen/card_button_margin"
+            android:layout_marginTop="@dimen/text_margin_very_small"
              />
 
         <TextView
@@ -63,7 +63,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/tv_date"
-            android:padding="@dimen/card_button_margin">
+            android:padding="@dimen/text_margin_very_small">
 
             <Button
                 android:id="@+id/btn_card_main1_action1"
@@ -84,7 +84,7 @@
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:clickable="true"
                 android:padding="5dp"
-                android:src="@drawable/ic_share_black_24dp" />
+                android:src="@drawable/ic_share" />
 
             <TextView
                 android:id="@+id/tv_main_card2_comment"
@@ -94,7 +94,6 @@
                 android:layout_toStartOf="@id/img_main_card2_share"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:clickable="true"
-                android:text="1"
                 android:textSize="@dimen/defaultMenuTextSize" />
 
             <ImageView
@@ -106,7 +105,7 @@
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:clickable="true"
                 android:padding="5dp"
-                android:src="@drawable/ic_bookmark_border_black_24dp" />
+                android:src="@drawable/ic_comments" />
 
             <TextView
                 android:id="@+id/tv_main_card2_like"
@@ -116,8 +115,6 @@
                 android:layout_toStartOf="@id/img_main_card2_bookmark"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:clickable="true"
-
-                android:text="1"
                 android:textSize="@dimen/defaultMenuTextSize" />
 
             <ImageView
@@ -129,7 +126,7 @@
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:clickable="true"
                 android:padding="5dp"
-                android:src="@drawable/ic_favorite_border_black_24dp" />
+                android:src="@drawable/ic_like" />
 
             <TextView
                 android:id="@+id/tv_main_card2_view"
@@ -139,7 +136,6 @@
                 android:layout_toStartOf="@id/img_main_card2_favorite"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:clickable="true"
-                android:text="1"
                 android:textSize="@dimen/defaultMenuTextSize" />
 
             <ImageView
@@ -151,7 +147,7 @@
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:clickable="true"
                 android:padding="5dp"
-                android:src="@drawable/ic_favorite_border_black_24dp" />
+                android:src="@drawable/ic_view" />
         </RelativeLayout>
 
     </RelativeLayout>

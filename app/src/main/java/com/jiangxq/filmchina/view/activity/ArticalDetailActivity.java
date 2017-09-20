@@ -13,6 +13,7 @@ import com.jiangxq.filmchina.base.BaseActivity;
 import com.jiangxq.filmchina.model.bean.ArticaItemBean;
 import com.jiangxq.filmchina.presenter.ArticalDetailContract;
 import com.jiangxq.filmchina.presenter.ArticalDetailPresenter;
+import com.orhanobut.logger.Logger;
 import com.tencent.smtt.sdk.WebSettings;
 import com.tencent.smtt.sdk.WebView;
 import com.tencent.smtt.sdk.WebViewClient;
@@ -56,7 +57,9 @@ public class ArticalDetailActivity extends BaseActivity implements ArticalDetail
                 ArticalDetailActivity.this.finish();
             }
         });
-        articalContent = new WebView(this);
+        if(articalContent==null){
+            articalContent = new WebView(this);
+        }
         initWebView();
     }
 
@@ -65,6 +68,7 @@ public class ArticalDetailActivity extends BaseActivity implements ArticalDetail
         super.initData();
         mPresenter = new ArticalDetailPresenter(this,this);
         articalData = (ArticaItemBean)getIntent().getSerializableExtra("artical");
+        Logger.t(TAG).e("intentData-------->"+articalData.getTitle()+articalData.getUri());
         mPresenter.loadArtical(articalData.getUri().split("com/")[1]);
     }
 
@@ -122,8 +126,15 @@ public class ArticalDetailActivity extends BaseActivity implements ArticalDetail
                 articalContent.goBack();
                 return true;
             }}
+        clearWebView();
         finish();
         return false;
+    }
+    private void clearWebView(){
+        if(articalContent!=null){
+            articalContent.removeAllViews();
+            articalContent.destroy();}
+        articalContent = null;
     }
     /**
      * webview 加载时会回调相应方法
@@ -154,9 +165,6 @@ public class ArticalDetailActivity extends BaseActivity implements ArticalDetail
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if(articalContent!=null){
-            articalContent.removeAllViews();
-            articalContent.destroy();}
         setConfigCallback(null);
     }
     public void setConfigCallback(WindowManager windowManager) {

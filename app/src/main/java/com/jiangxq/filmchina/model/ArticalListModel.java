@@ -42,6 +42,13 @@ public class ArticalListModel extends BaseModel{
     private ArrayList<ArticaItemBean> articals = new ArrayList<ArticaItemBean>();
     private Document articalDoc;
     private Document bannerDoc;
+    private Elements thumbnails;
+    private Elements titles;
+    private Elements desc;
+    private Elements urlTarget;
+    private Elements titleTarget;
+    private Elements authorTarget;
+    private String originString;
     public ArticalListModel(Context context) {
        super(context);
     }
@@ -63,18 +70,18 @@ public class ArticalListModel extends BaseModel{
                 mBanners.clear();
                 try {
                     bannerDoc = Jsoup.parse(responseBody.string());
-                    Elements urlTarget = bannerDoc.getElementsByClass("entry-featured__thumbnail");
+                    urlTarget = bannerDoc.getElementsByClass("entry-featured__thumbnail");
                     for(Element element:urlTarget){
-                        String originString = element.attr("style");
+                        originString = element.attr("style");
                         bannerUrls.add(originString.substring(originString.indexOf("url('")+5,originString.indexOf(".jpg")+4));
                     }
-                    Elements titleTarget = bannerDoc.getElementsByClass("entry-title entry-featured__title");
+                    titleTarget = bannerDoc.getElementsByClass("entry-title entry-featured__title");
                     for(Element element:titleTarget){
 
                         bannerTitles.add( element.select("a").text());
                         bannerHerfs.add(element.select("a").attr("href"));
                     }
-                    Elements authorTarget = bannerDoc.getElementsByClass("featured-post-meta");
+                    authorTarget = bannerDoc.getElementsByClass("featured-post-meta");
                     for(Element element:authorTarget){
                         bannerAuthors.add(element.text());
                     }
@@ -122,18 +129,19 @@ public class ArticalListModel extends BaseModel{
             like.clear();
             comment.clear();
             articals.clear();
+            uri.clear();
             try {
                 articalDoc  = Jsoup.parse(responseBody.string());
-                Elements thumbnails = articalDoc.getElementsByClass("entry-thumbnail entry-media-image ");
+                thumbnails = articalDoc.getElementsByClass("entry-thumbnail entry-media-image ");
                 for(Element element:thumbnails){
                     uri.add(element.select("a").attr("href"));
                     pics.add(element.select("a").select("img").attr("src"));
                 }
-                Elements titles = articalDoc.getElementsByClass("entry-title h2");
+                titles = articalDoc.getElementsByClass("entry-title h2");
                 for (Element element:titles){
                     title.add(element.select("a").text());
                 }
-                Elements desc = articalDoc.getElementsByTag("span");
+                desc = articalDoc.getElementsByTag("span");
                 for(Element element:desc){
                     switch (element.className()){
                         case "author vcard":

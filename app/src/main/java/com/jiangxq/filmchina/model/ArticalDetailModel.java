@@ -23,7 +23,6 @@ import static com.jiangxq.filmchina.app.Constants.BASE_URL_NO_SLASH;
  */
 
 public class ArticalDetailModel extends BaseModel{
-    private String html;
     private Document articalDoc ;
     public ArticalDetailModel(Context context) {
        super(context);
