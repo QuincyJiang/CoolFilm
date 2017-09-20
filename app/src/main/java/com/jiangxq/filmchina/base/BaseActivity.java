@@ -8,6 +8,7 @@ import android.support.annotation.CheckResult;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 
+import com.jiangxq.filmchina.util.ActivityManagerUtil;
 import com.orhanobut.logger.Logger;
 import com.trello.rxlifecycle.ActivityEvent;
 import com.trello.rxlifecycle.ActivityLifecycleProvider;
@@ -15,7 +16,6 @@ import com.trello.rxlifecycle.LifecycleTransformer;
 import com.trello.rxlifecycle.RxLifecycle;
 
 import butterknife.ButterKnife;
-import cn.wwah.common.ActivityManagerUtil;
 import rx.Observable;
 import rx.subjects.BehaviorSubject;
 

@@ -1,7 +1,6 @@
 package com.jiangxq.filmchina.model;
 
-import android.content.Context;
-
+import com.jiangxq.filmchina.base.BaseFragment;
 import com.jiangxq.filmchina.base.BaseModel;
 import com.jiangxq.filmchina.model.bean.ArticaItemBean;
 
@@ -15,7 +14,7 @@ import rx.Observer;
  */
 
 public class AppModel extends BaseModel {
-    public AppModel(Context context) {
+    public AppModel(BaseFragment context) {
         super(context);
     }
 

@@ -4,6 +4,8 @@ import android.content.Context;
 import android.os.Environment;
 import android.text.TextUtils;
 
+import com.bumptech.glide.Glide;
+
 import java.io.File;
 import java.math.BigDecimal;
 
@@ -43,6 +45,7 @@ public class DataCleanerManager {
 
     public static void clearAllCache(Context context) {
         deleteDir(context.getCacheDir());
+        deleteDir(Glide.getPhotoCacheDir(context));
         if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
             deleteDir(context.getExternalCacheDir());
         }

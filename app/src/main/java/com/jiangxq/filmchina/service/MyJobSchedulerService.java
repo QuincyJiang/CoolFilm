@@ -4,7 +4,8 @@ import android.app.job.JobParameters;
 import android.app.job.JobService;
 import android.widget.Toast;
 
-import cn.wwah.common.net.NetUtils;
+import com.jiangxq.filmchina.util.NetUtils;
+
 
 /**
  * Created by jiangxq170307 on 2017/9/18.

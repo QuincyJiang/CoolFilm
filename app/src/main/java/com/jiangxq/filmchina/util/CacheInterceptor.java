@@ -6,7 +6,6 @@ import com.orhanobut.logger.Logger;
 
 import java.io.IOException;
 
-import cn.wwah.common.net.NetUtils;
 import okhttp3.CacheControl;
 import okhttp3.Interceptor;
 import okhttp3.Request;

@@ -54,7 +54,7 @@ public class TechFragment extends BaseFragment implements ArticalListContract.Vi
     }
     @Override
     protected void initData() {
-        mPresenter = new ArticalListPresenter(new TechModel(getContext()),this);
+        mPresenter = new ArticalListPresenter(new TechModel(this),this);
     }
 
     @Override
@@ -99,19 +99,8 @@ public class TechFragment extends BaseFragment implements ArticalListContract.Vi
         mAdapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
             @Override
             public void onLoadMoreRequested() {
-                if (mCurrentCounter >= 1000) {
-                    //数据全部加载完毕
-                    mAdapter.loadMoreEnd();
-                } else {
-                    if (!isErr) {
-                        mPresenter.loadArtical(mPage);
-                    } else {
-                        //获取更多数据失败
-                        isErr = true;
-                        mAdapter.loadMoreFail();
+                mPresenter.loadArtical(mPage);
 
-                    }
-                }
             }},articalList);
     }
     private void initListener(){
@@ -167,6 +156,8 @@ public class TechFragment extends BaseFragment implements ArticalListContract.Vi
 
     @Override
     public void showError(String msg) {
+        isErr = true;
+        mAdapter.loadMoreFail();
         if(refresh.isRefreshing()){
             refresh.setRefreshing(false);}
         if(dailog==null){
@@ -182,7 +173,9 @@ public class TechFragment extends BaseFragment implements ArticalListContract.Vi
 
     @Override
     public void dismissLoading() {
-        articalList.setVisibility(View.VISIBLE);
+        if(refresh.isRefreshing()){
+            refresh.setRefreshing(false);
+        }
 
     }
 
@@ -197,11 +190,16 @@ public class TechFragment extends BaseFragment implements ArticalListContract.Vi
 
     @Override
     public void showNoMore() {
+        if(refresh.isRefreshing()){
+            refresh.setRefreshing(false);}
+        mAdapter.loadMoreEnd();
     }
 
     @Override
     public void showLoading() {
-        articalList.setVisibility(View.INVISIBLE);
+        if(!refresh.isRefreshing()){
+            refresh.setRefreshing(true);
+        }
     }
 
     RecyclerView.OnScrollListener scrollListener = new RecyclerView.OnScrollListener() {

@@ -32,13 +32,19 @@ public class ArticalListPresenter implements ArticalListContract.Presenter{
             @Override
             public void onCompleted() {
                 view.dismissLoading();
-
+                isLoding = false;
             }
 
             @Override
             public void onError(Throwable e) {
+                isLoding = false;
                 view.dismissDialog();
-                view.showDialog(e.getMessage());
+                if(e.getMessage().equals("HTTP 404 Not Found")){
+                    view.showNoMore();
+                }else{
+                    view.showError(e.getMessage());
+                }
+//
             }
 
             @Override

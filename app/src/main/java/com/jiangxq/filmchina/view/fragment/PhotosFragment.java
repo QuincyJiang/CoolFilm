@@ -1,7 +1,6 @@
 package com.jiangxq.filmchina.view.fragment;
 
 import android.app.AlertDialog;
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
@@ -47,8 +46,6 @@ public class PhotosFragment extends BaseFragment implements ArticalListContract.
     private Boolean isErr = false;
     private int mCurrentCounter;
     private AlertDialog dailog;
-    private ProgressDialog loadingDailog;
-
 
 
     @Override
@@ -57,7 +54,7 @@ public class PhotosFragment extends BaseFragment implements ArticalListContract.
     }
     @Override
     protected void initData() {
-        mPresenter = new ArticalListPresenter(new PhotosModel(getContext()),this);
+        mPresenter = new ArticalListPresenter(new PhotosModel(this),this);
     }
 
     @Override
@@ -102,19 +99,8 @@ public class PhotosFragment extends BaseFragment implements ArticalListContract.
         mAdapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
             @Override
             public void onLoadMoreRequested() {
-                if (mCurrentCounter >= 1000) {
-                    //数据全部加载完毕
-                    mAdapter.loadMoreEnd();
-                } else {
-                    if (!isErr) {
-                        mPresenter.loadArtical(mPage);
-                    } else {
-                        //获取更多数据失败
-                        isErr = true;
-                        mAdapter.loadMoreFail();
+                mPresenter.loadArtical(mPage);
 
-                    }
-                }
             }},articalList);
     }
     private void initListener(){
@@ -170,6 +156,8 @@ public class PhotosFragment extends BaseFragment implements ArticalListContract.
 
     @Override
     public void showError(String msg) {
+        isErr = true;
+        mAdapter.loadMoreFail();
         if(refresh.isRefreshing()){
             refresh.setRefreshing(false);}
         if(dailog==null){
@@ -185,10 +173,9 @@ public class PhotosFragment extends BaseFragment implements ArticalListContract.
 
     @Override
     public void dismissLoading() {
-//        if(loadingDailog!=null&&loadingDailog.isShowing()){
-//            loadingDailog.dismiss();
-//        }
-
+        if(refresh.isRefreshing()){
+            refresh.setRefreshing(false);
+        }
     }
 
     @Override
@@ -202,17 +189,16 @@ public class PhotosFragment extends BaseFragment implements ArticalListContract.
 
     @Override
     public void showNoMore() {
+        if(refresh.isRefreshing()){
+            refresh.setRefreshing(false);}
+        mAdapter.loadMoreEnd();
     }
 
     @Override
     public void showLoading() {
-//        if(dailog==null){
-//            dailog = new ProgressDialog(getActivity());
-//        }
-//        dailog.setMessage(getString(R.string.loading));
-//        if(!dailog.isShowing()){
-//            dailog.show();
-//        }
+        if(!refresh.isRefreshing()){
+            refresh.setRefreshing(true);
+        }
     }
 
     RecyclerView.OnScrollListener scrollListener = new RecyclerView.OnScrollListener() {

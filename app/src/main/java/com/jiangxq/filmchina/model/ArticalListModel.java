@@ -1,9 +1,8 @@
 package com.jiangxq.filmchina.model;
 
-import android.content.Context;
-
 import com.jiangxq.filmchina.api.ApiService;
 import com.jiangxq.filmchina.app.MyApplication;
+import com.jiangxq.filmchina.base.BaseFragment;
 import com.jiangxq.filmchina.base.BaseModel;
 import com.jiangxq.filmchina.model.bean.ArticaItemBean;
 
@@ -49,7 +48,7 @@ public class ArticalListModel extends BaseModel{
     private Elements titleTarget;
     private Elements authorTarget;
     private String originString;
-    public ArticalListModel(Context context) {
+    public ArticalListModel(BaseFragment context) {
        super(context);
     }
 

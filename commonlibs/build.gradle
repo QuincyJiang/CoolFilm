@@ -39,14 +39,27 @@ dependencies {
     //    compile 'com.yinglan.alphatabs:library:1.0.8'
     //    compile 'io.github.yuweiguocn:SquareLoading:1.3.0'
     //    compile 'cn.pedant.sweetalert:library:1.3'
-    compile('com.github.wwah.AndroidBasicLibs:basekit:0.3.3', {
-        exclude group: 'com.vise.xiaoyaoyou'
-    })
+//        compile('com.github.wwah.AndroidBasicLibs:basekit:0.3.3', {
+//            exclude group: 'com.vise.xiaoyaoyou'
+//            exclude gropu:
+//        })
     compile 'com.squareup.okhttp3:logging-interceptor:3.4.1'
     compile 'com.orhanobut:logger:1.15'
     compile 'com.android.support:cardview-v7:26.0.0-alpha1'
     compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.28'
-    //    compile 'com.squareup.leakcanary:leakcanary-android:1.5.2'
-    //    compile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.2'
+//    compile 'com.squareup.leakcanary:leakcanary-android:1.5.2'
+    compile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.2'
     compile files('libs/tbs.jar')
+    compile 'com.squareup.retrofit2:retrofit:2.1.0'
+    compile 'com.squareup.okhttp3:okhttp:3.4.1'
+    compile 'com.github.bumptech.glide:glide:3.7.0'
+    compile 'com.github.bumptech.glide:okhttp3-integration:1.4.0@aar'
+    compile 'io.reactivex:rxandroid:1.2.1'
+    compile 'io.reactivex:rxjava:1.1.6'
+    compile 'com.trello:rxlifecycle:0.6.1'
+    compile 'com.trello:rxlifecycle-components:0.6.1'
+    compile 'com.trello:rxlifecycle-navi:0.6.1'
+    compile 'com.jakewharton:butterknife:7.0.1'
+    compile 'com.squareup.retrofit2:adapter-rxjava:2.1.0'
+//
 }

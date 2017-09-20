@@ -6,7 +6,6 @@ import android.os.Process;
 import java.util.Iterator;
 import java.util.Stack;
 
-import cn.wwah.common.ActivityManagerUtil;
 
 /**
  * Created by jiangxq170307 on 20179/14.

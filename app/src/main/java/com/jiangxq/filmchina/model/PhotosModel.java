@@ -1,9 +1,8 @@
 package com.jiangxq.filmchina.model;
 
-import android.content.Context;
-
 import com.jiangxq.filmchina.api.ApiService;
 import com.jiangxq.filmchina.app.MyApplication;
+import com.jiangxq.filmchina.base.BaseFragment;
 import com.jiangxq.filmchina.base.BaseModel;
 import com.jiangxq.filmchina.model.bean.ArticaItemBean;
 
@@ -39,7 +38,7 @@ public class PhotosModel extends BaseModel {
     private Elements thumbnails;
     private Elements titles;
     private Elements desc;
-    public PhotosModel(Context context) {
+    public PhotosModel(BaseFragment context) {
         super(context);
     }
 

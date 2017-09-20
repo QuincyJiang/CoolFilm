@@ -12,6 +12,8 @@ import com.jiangxq.filmchina.service.MyJobSchedulerService;
 import com.jiangxq.filmchina.util.CacheInterceptor;
 import com.orhanobut.logger.LogLevel;
 import com.orhanobut.logger.Logger;
+import com.squareup.leakcanary.LeakCanary;
+import com.squareup.leakcanary.RefWatcher;
 import com.tencent.smtt.sdk.QbSdk;
 
 import java.util.concurrent.TimeUnit;
@@ -35,11 +37,13 @@ public class MyApplication extends Application {
     private ApiService apiService;
     private JobScheduler mJobScheduler;
     private JobInfo info;
+    private RefWatcher mRefWatcher;
+
     @Override
     public void onCreate() {
         super.onCreate();
         myApp = this;
-//        mRefWatcher = BuildConfig.DEBUG ?  LeakCanary.install(this) : RefWatcher.DISABLED;
+        mRefWatcher = BuildConfig.DEBUG ?  LeakCanary.install(this) : RefWatcher.DISABLED;
         initTBSx5(this);
         initJobService();
         initLogger();
@@ -90,7 +94,7 @@ public class MyApplication extends Application {
     public ApiService getApiService() {
         return apiService;
     }
-//    public static RefWatcher getRefWatcher() {
-//        return myApp.mRefWatcher;
-//    }
+    public static RefWatcher getRefWatcher() {
+        return myApp.mRefWatcher;
+    }
 }

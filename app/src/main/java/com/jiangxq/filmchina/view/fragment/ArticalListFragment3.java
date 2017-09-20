@@ -64,7 +64,7 @@ public class ArticalListFragment3 extends BaseFragment implements ArticalListCon
     }
     @Override
     protected void initData() {
-        mPresenter = new ArticalListPresenter(new ArticalListModel(getContext()),this);
+        mPresenter = new ArticalListPresenter(new ArticalListModel(this),this);
     }
 
     @Override
@@ -235,7 +235,6 @@ public class ArticalListFragment3 extends BaseFragment implements ArticalListCon
 
     @Override
     public void dismissLoading() {
-        articalList.setVisibility(View.VISIBLE);
 
     }
 
@@ -254,7 +253,6 @@ public class ArticalListFragment3 extends BaseFragment implements ArticalListCon
 
     @Override
     public void showLoading() {
-        articalList.setVisibility(View.INVISIBLE);
     }
 
     RecyclerView.OnScrollListener scrollListener = new RecyclerView.OnScrollListener() {

@@ -1,13 +1,8 @@
 <resources>
     <string name="app_name">菲林中文</string>
-    <string name="title_activity_main">MainActivity</string>
-    <string name="action_settings">Settings</string>
-    <string name="section_format">Hello World from section: %1$d</string>
-
+    <string name="action_settings">设置</string>
     <string name="submit_artical">投稿作品</string>
     <string name="love_shot_film">爱拍照</string>
-    <string name="list_title_demo">藏在胶片里的故事@南风里_</string>
-    <string name="list_description_demo">路过那蓝天白云和秋冬春夏 晃动的镜头在GA LA</string>
     <string name="read_more">查看更多</string>
     <string name="artical_title">文章详情</string>
     <string name="loading">正在加载……</string>
@@ -44,6 +39,8 @@
     <string name="about_git_hub">源代码 (GitHub)</string>
     <string name="about_email_intent">关于:菲林中文</string>
     <string name="about_not_found_email">没有邮件程序</string>
+    <string name="navigation_drawer_open">抽屉打开</string>
+    <string name="navigation_drawer_close">抽屉关闭</string>
 
 
 </resources>

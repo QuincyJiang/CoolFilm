@@ -19,6 +19,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.jiangxq.filmchina.app.Constants;
 import com.jiangxq.filmchina.base.BaseActivity;
 import com.jiangxq.filmchina.util.DataCleanerManager;
@@ -162,7 +163,8 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
         try {
             long cacheSize = DataCleanerManager.getFolderSize(getApplicationContext().getCacheDir()) +
-                    DataCleanerManager.getFolderSize(getApplicationContext().getExternalCacheDir());
+                    DataCleanerManager.getFolderSize(getApplicationContext().getExternalCacheDir())
+                    +DataCleanerManager.getFolderSize(Glide.getPhotoCacheDir(getApplicationContext()));
             return DataCleanerManager.getFormatSize(cacheSize);
         } catch (Exception e) {
             // TODO Auto-generated catch block

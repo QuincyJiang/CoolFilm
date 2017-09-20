@@ -1,10 +1,8 @@
 package com.jiangxq.filmchina.base;
 
-import android.content.Context;
-
 import com.jiangxq.filmchina.model.bean.ArticaItemBean;
-import com.trello.rxlifecycle.ActivityEvent;
-import com.trello.rxlifecycle.ActivityLifecycleProvider;
+import com.trello.rxlifecycle.FragmentEvent;
+import com.trello.rxlifecycle.FragmentLifecycleProvider;
 
 import java.util.List;
 
@@ -18,10 +16,10 @@ import rx.schedulers.Schedulers;
  */
 
 public  class BaseModel {
-        protected Context mContext;
+        protected BaseFragment mFragment;
 
-        public BaseModel(Context context) {
-            this.mContext = context;
+        public BaseModel(BaseFragment fragment) {
+            this.mFragment = fragment;
         }
 
         public  void getArticalList(int page,Observer<List<ArticaItemBean>> mObservable){}
@@ -29,17 +27,17 @@ public  class BaseModel {
         public void getArticalDetail(String index,Observer<String> mObservable){}
 
 
-        protected ActivityLifecycleProvider getActivityLifecycleProvider() {
-            ActivityLifecycleProvider provider = null;
-            if(null != this.mContext && this.mContext instanceof ActivityLifecycleProvider) {
-                provider = (ActivityLifecycleProvider)this.mContext;
+        protected FragmentLifecycleProvider getFragmentLifecycleProvider() {
+            FragmentLifecycleProvider provider = null;
+            if(null != this.mFragment ) {
+                provider =this.mFragment;
             }
 
             return provider;
         }
 
         public Observable subscribe(Observable mObservable, Observer observer) {
-            mObservable.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).compose(this.getActivityLifecycleProvider().bindUntilEvent(ActivityEvent.DESTROY)).subscribe(observer);
+                mObservable.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).compose(this.getFragmentLifecycleProvider().bindUntilEvent(FragmentEvent.DESTROY)).subscribe(observer);
             return mObservable;
         }
     }
