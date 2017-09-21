@@ -5,8 +5,8 @@
  3.  网络请求使用retrofit+Rxjava
  4. html解析使用jsop
  5. 遵守materiaDesign设计风格
-![image](http://ou61qboep.bkt.clouddn.com/videotogif_2017.09.20_19.30.34.gif)
+![image](http://ou61qboep.bkt.clouddn.com/1.gif)
 
-![image](http://ou61qboep.bkt.clouddn.com/videotogif_2017.09.20_19.32.38.gif)
+![image](http://ou61qboep.bkt.clouddn.com/2.gif)
 
-![image](http://ou61qboep.bkt.clouddn.com/videotogif_2017.09.20_19.33.55.gif)
+![image](http://ou61qboep.bkt.clouddn.com/3.gif)
