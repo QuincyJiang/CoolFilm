@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <group android:checkableBehavior="single">
+    <group android:id="@+id/about" >
         <item
             android:id="@+id/nav_about_film"
             android:icon="@drawable/ic_film2"
@@ -10,14 +10,24 @@
             android:id="@+id/nav_about_coder"
             android:icon="@drawable/ic_code"
             android:title="@string/about_developer" />
+        </group>
+    <group android:id="@+id/settings" >
         <item
             android:id="@+id/nav_clear_cache"
             android:icon="@drawable/ic_clear"
             android:title="@string/clear_cache" />
         <item
+            android:id="@+id/nav_update"
+            android:icon="@drawable/ic_update"
+            android:title="@string/update"/>
+        <item
             android:id="@+id/nav_exit"
             android:icon="@drawable/ic_exit"
             android:title="@string/exit" />
+
+        </group>
+
+    <group android:id="@+id/share">
         <item
             android:id="@+id/nav_share"
             android:icon="@drawable/ic_menu_share"
@@ -27,4 +37,5 @@
 
 
 
-</menu>
+
+    </menu>

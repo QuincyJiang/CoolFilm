@@ -14,7 +14,6 @@ import com.orhanobut.logger.LogLevel;
 import com.orhanobut.logger.Logger;
 import com.squareup.leakcanary.LeakCanary;
 import com.squareup.leakcanary.RefWatcher;
-import com.tencent.smtt.sdk.QbSdk;
 
 import java.util.concurrent.TimeUnit;
 
@@ -38,13 +37,15 @@ public class MyApplication extends Application {
     private JobScheduler mJobScheduler;
     private JobInfo info;
     private RefWatcher mRefWatcher;
+    public static String APP_PATH ;
 
     @Override
     public void onCreate() {
         super.onCreate();
         myApp = this;
         mRefWatcher = BuildConfig.DEBUG ?  LeakCanary.install(this) : RefWatcher.DISABLED;
-        initTBSx5(this);
+        APP_PATH = getApplicationContext().getFilesDir().getAbsolutePath();
+//        initTBSx5(this);
         initJobService();
         initLogger();
         initRetrofit();
@@ -59,9 +60,9 @@ public class MyApplication extends Application {
         if( mJobScheduler.schedule(info) <= 0 ) {
         }
     }
-    private void initTBSx5(Context context) {
-        QbSdk.initX5Environment(this,null);
-    }
+//    private void initTBSx5(Context context) {
+//        QbSdk.initX5Environment(this,null);
+//    }
     private void initLogger(){
         LogLevel logLevel;
         if (!BuildConfig.API_ENV){
@@ -83,7 +84,7 @@ public class MyApplication extends Application {
                         .connectTimeout(5, TimeUnit.SECONDS)
                         .addNetworkInterceptor(new CacheInterceptor(getApplicationContext()))
                         .cache(new Cache(getCacheDir(),1024*1024*100))
-                        .readTimeout(2, TimeUnit.SECONDS)
+                        .readTimeout(5, TimeUnit.SECONDS)
                         .addInterceptor(interceptor)
                         . build())
                 .build();

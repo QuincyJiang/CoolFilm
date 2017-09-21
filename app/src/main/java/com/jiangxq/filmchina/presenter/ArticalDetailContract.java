@@ -10,6 +10,7 @@ public class ArticalDetailContract {
         void dismissLoading();
         void showError();
         void showArtical(String html);
+        void showPermissionDialog();
     }
     public interface Presenter{
         void loadArtical(String index);

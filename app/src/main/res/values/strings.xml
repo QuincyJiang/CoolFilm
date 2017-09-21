@@ -32,6 +32,7 @@
     <string name="clear_cache">clear cache</string>
     <string name="exit">Exit</string>
     <string name="share">share</string>
+    <string name="update">Check update</string>
     <string name="about_title"> This application is the unofficial client of the Coofilm website. The data is analyzed from HTML and the developer is the old user of the Coofilm website. Hope that the Coofilm website will do better in the future. The source code is opened in github and welcome star!</string>
     <string name="version">current version:</string>
     <string name="about_card2_title">If you liked the app, feel free to contact me.</string>
@@ -41,4 +42,8 @@
     <string name="about_email_intent">About:Coofilm</string>
     <string name="about_not_found_email">Not found email app</string>
     <string name="clear_cache_description">clear cache? cache size is about  %1$s </string>
+    <string name="permissions_description">Please grant the application to read and write external storage permissions, which are used only to save the image.</string>
+    <string name="permissions_grant_fail">Failed to grant permission！</string>
+    <string name="save_pic_title">Save picture</string>
+    <string name="save_pic_content">Want to save this picture to %1$s?</string>
 </resources>

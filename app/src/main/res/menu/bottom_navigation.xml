@@ -20,4 +20,5 @@
         android:icon="@drawable/ic_activity"
         android:title="@string/activities" />
 
+
 </menu>

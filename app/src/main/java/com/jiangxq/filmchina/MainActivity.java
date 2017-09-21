@@ -25,7 +25,6 @@ import com.jiangxq.filmchina.base.BaseActivity;
 import com.jiangxq.filmchina.util.DataCleanerManager;
 import com.jiangxq.filmchina.view.activity.AboutActivity;
 import com.jiangxq.filmchina.view.fragment.ActivitiesFragment;
-import com.jiangxq.filmchina.view.fragment.ArticalListFragment3;
 import com.jiangxq.filmchina.view.fragment.LoveEquipmentFragment;
 import com.jiangxq.filmchina.view.fragment.LoveLifeFragment;
 import com.jiangxq.filmchina.view.fragment.LovePhotosFragment;
@@ -155,6 +154,8 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
             System.exit(0);
         } else if (id == R.id.nav_share) {
 
+        }else if(id == R.id.nav_update){
+
         }
         drawer.closeDrawer(GravityCompat.START);
         return true;
@@ -214,7 +215,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
                     return new LoveLifeFragment();
                 case 3:
                     return new ActivitiesFragment();
-                default:return new ArticalListFragment3();
+                default:return new LovePhotosFragment();
             }
         }
 
