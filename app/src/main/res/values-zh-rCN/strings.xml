@@ -8,6 +8,7 @@
     <string name="loading">正在加载……</string>
     <string name="error_title">oops……</string>
     <string name="error_content">看来加载遇到了一点问题 错误信息：</string>
+    <string name="error_content_unknown">加载遇到了一些问题</string>
     <string name="confirm">确定</string>
     <string name="cancel">取消</string>
     <string name="main_page">投稿</string>
@@ -32,10 +33,10 @@
     <string name="exit">退出</string>
     <string name="share">分享此应用</string>
     <string name="update">检查更新</string>
-    <string name="about_title">本应用为菲林中文的非官方客户端，数据解析自html，遵循Apache2.0开源协议。</string>
+    <string name="about_title">本应用为菲林中文的非官方客户端，数据解析自html，仅限交流，严禁任何形式商业用途。</string>
     <string name="version">当前版本：</string>
     <string name="about_card2_title">欢迎反馈问题以帮助我改进此应用</string>
-    <string name="about_google_play">评价 (Google play)</string>
+    <string name="about_google_play">评价 (酷安网)</string>
     <string name="about_email">反馈 (E-mail)</string>
     <string name="about_git_hub">源代码 (GitHub)</string>
     <string name="about_email_intent">关于:菲林中文</string>
@@ -46,6 +47,7 @@
     <string name="permissions_grant_fail">授权失败</string>
     <string name="save_pic_title">保存图片</string>
     <string name="save_pic_content">要保存此图片到%1$s吗？</string>
+    <string name="loading_error">加载失败，点击屏幕重新加载</string>
 
 
 </resources>

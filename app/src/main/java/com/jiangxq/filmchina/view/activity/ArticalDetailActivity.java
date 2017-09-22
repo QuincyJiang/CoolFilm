@@ -1,21 +1,24 @@
 package com.jiangxq.filmchina.view.activity;
 
 import android.Manifest;
-import android.app.AlertDialog;
-import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Environment;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
+import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.FrameLayout;
+import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.jiangxq.filmchina.R;
@@ -39,6 +42,9 @@ import java.util.Date;
 import butterknife.Bind;
 import rx.functions.Action1;
 
+import static android.graphics.PorterDuff.Mode.MULTIPLY;
+import static android.view.View.GONE;
+
 
 /**
  * Created by jiangxq170307 on 2017/9/16.
@@ -49,9 +55,16 @@ public class ArticalDetailActivity extends BaseActivity implements ArticalDetail
     Toolbar toolbar;
     @Bind(R.id.wv_container)
     FrameLayout webViewContainer;
+    @Bind(R.id.fl_loading)
+    FrameLayout loading;
+    @Bind(R.id.pb_loading)
+    ProgressBar progressBar;
+    @Bind(R.id.rl_error)
+    RelativeLayout errorPage;
+
     private ArticaItemBean articalData;
     private WebView articalContent;
-    private ProgressDialog progressDialog;
+//    private ProgressDialog progressDialog;
     private ArticalDetailPresenter mPresenter;
     private static String imgUrl;
     private ItemOnLongClickedPopWindow itemLongClickedPopWindow;
@@ -82,10 +95,19 @@ public class ArticalDetailActivity extends BaseActivity implements ArticalDetail
                 ArticalDetailActivity.this.finish();
             }
         });
+        if(progressBar!=null){
+            progressBar.getIndeterminateDrawable().setColorFilter(Color.BLACK,MULTIPLY);
+        }
         if(articalContent==null){
             articalContent = new WebView(this);
         }
         initWebView();
+        errorPage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mPresenter.loadArtical(articalData.getUri().split("com/")[1]);
+            }
+        });
 
     }
 
@@ -100,14 +122,23 @@ public class ArticalDetailActivity extends BaseActivity implements ArticalDetail
 
     @Override
     public void dismissLoading() {
-        if(progressDialog !=null&& progressDialog.isShowing()){
-            progressDialog.dismiss();
+//        if(progressDialog !=null&& progressDialog.isShowing()){
+//            progressDialog.dismiss();
+//        }
+        if(errorPage!=null&&loading!=null){
+            loading.setVisibility(GONE);
+            errorPage.setVisibility(GONE);
         }
+        webViewContainer.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void showError() {
-
+        if(errorPage!=null&&loading!=null){
+            errorPage.setVisibility(View.VISIBLE);
+            loading.setVisibility(GONE);
+        }
+        webViewContainer.setVisibility(View.INVISIBLE);
     }
 
     @Override
@@ -178,13 +209,18 @@ public class ArticalDetailActivity extends BaseActivity implements ArticalDetail
 
     @Override
     public void showLoading() {
-        if(progressDialog ==null){
-            progressDialog = new ProgressDialog(this);
+//        if(progressDialog ==null){
+//            progressDialog = new ProgressDialog(this);
+//        }
+//        progressDialog.setMessage(getString(R.string.loading));
+//        if(!progressDialog.isShowing()){
+//            progressDialog.show();
+//        }
+        if(errorPage!=null&&loading!=null){
+            loading.setVisibility(View.VISIBLE);
+            errorPage.setVisibility(GONE);
         }
-        progressDialog.setMessage(getString(R.string.loading));
-        if(!progressDialog.isShowing()){
-            progressDialog.show();
-        }
+        webViewContainer.setVisibility(View.INVISIBLE);
     }
     private void initWebView(){
         webViewContainer.addView(articalContent);
@@ -195,6 +231,7 @@ public class ArticalDetailActivity extends BaseActivity implements ArticalDetail
         settings.setLoadWithOverviewMode(true);
         settings.setBuiltInZoomControls(false);
         articalContent.setWebViewClient(new CustomWebViewClient());
+        articalContent.setWebChromeClient(new MyWebChromeClient());
         articalContent.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
@@ -283,16 +320,28 @@ public class ArticalDetailActivity extends BaseActivity implements ArticalDetail
             if ((keyCode == KeyEvent.KEYCODE_BACK) && articalContent.canGoBack()) {
                 articalContent.goBack();
                 return true;
-            }}
-        clearWebView();
-        finish();
+            }else if(keyCode == KeyEvent.KEYCODE_BACK){
+                clearWebView();
+                finish();
+                return true;
+            }
+        }
         return false;
     }
     private void clearWebView(){
         if(articalContent!=null){
             articalContent.removeAllViews();
-            articalContent.destroy();}
-        articalContent = null;
+            articalContent.destroy();
+        articalContent=null;}
+    }
+    private class MyWebChromeClient extends WebChromeClient{
+        @Override
+        public void onProgressChanged(WebView view, int newProgress) {
+            if(newProgress>70){
+                dismissLoading();
+            }
+            super.onProgressChanged(view, newProgress);
+        }
     }
     /**
      * webview 加载时会回调相应方法
@@ -311,7 +360,7 @@ public class ArticalDetailActivity extends BaseActivity implements ArticalDetail
         @Override
         public void onPageFinished(WebView view, String url) {
             super.onPageFinished(view, url);
-           dismissLoading();
+//           dismissLoading();
         }
     }
 

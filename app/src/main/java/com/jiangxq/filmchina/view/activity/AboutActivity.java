@@ -28,8 +28,8 @@ public class AboutActivity extends BaseActivity implements View.OnClickListener 
     LinearLayout ll_card_about_2_shop;
     @Bind(R.id.ll_card_about_2_email)
     LinearLayout ll_card_about_2_email;
-    @Bind(R.id.ll_card_about_2_git_hub)
-    LinearLayout ll_card_about_2_git_hub;
+//    @Bind(R.id.ll_card_about_2_git_hub)
+//    LinearLayout ll_card_about_2_git_hub;
     @Bind(R.id.scroll_about)
     ScrollView scroll_about;
     @Bind(R.id.tv_about_version)
@@ -52,7 +52,7 @@ public class AboutActivity extends BaseActivity implements View.OnClickListener 
 
         ll_card_about_2_shop.setOnClickListener(this);
         ll_card_about_2_email.setOnClickListener(this);
-        ll_card_about_2_git_hub.setOnClickListener(this);
+//        ll_card_about_2_git_hub.setOnClickListener(this);
         AlphaAnimation alphaAnimation = new AlphaAnimation(0.0f, 1.0f);
         alphaAnimation.setDuration(300);
         alphaAnimation.setStartOffset(600);
@@ -84,11 +84,11 @@ public class AboutActivity extends BaseActivity implements View.OnClickListener 
                 }
                 break;
 
-            case R.id.ll_card_about_2_git_hub:
-                intent.setData(Uri.parse(Constants.GIT_HUB));
-                intent.setAction(Intent.ACTION_VIEW);
-                startActivity(intent);
-                break;
+//            case ll_card_about_2_git_hub:
+//                intent.setData(Uri.parse(Constants.GIT_HUB));
+//                intent.setAction(Intent.ACTION_VIEW);
+//                startActivity(intent);
+//                break;
 
 //            case R.id.fab_about_share:
 //                intent.setAction(Intent.ACTION_SEND);

@@ -8,6 +8,7 @@
     <string name="loading">loading……</string>
     <string name="error_title">oops……</string>
     <string name="error_content">Something went wrong! Error info:</string>
+    <string name="error_content_unknown">Something went wrong! please try again</string>
     <string name="confirm">Confirm</string>
     <string name="cancel">Cancle</string>
     <string name="main_page">Contributions</string>
@@ -33,10 +34,10 @@
     <string name="exit">Exit</string>
     <string name="share">share</string>
     <string name="update">Check update</string>
-    <string name="about_title"> This application is the unofficial client of the Coofilm website. The data is analyzed from HTML and the developer is the old user of the Coofilm website. Hope that the Coofilm website will do better in the future. The source code is opened in github and welcome star!</string>
+    <string name="about_title"> This application is the unofficial client of the Coofilm website. The data is analyzed from HTML, only for communication, no commercial</string>
     <string name="version">current version:</string>
     <string name="about_card2_title">If you liked the app, feel free to contact me.</string>
-    <string name="about_google_play">Rate on Google play</string>
+    <string name="about_google_play">Rate on coolapk</string>
     <string name="about_email">Feedback by E-mail</string>
     <string name="about_git_hub">Source code on GitHub</string>
     <string name="about_email_intent">About:Coofilm</string>
@@ -46,4 +47,5 @@
     <string name="permissions_grant_fail">Failed to grant permission！</string>
     <string name="save_pic_title">Save picture</string>
     <string name="save_pic_content">Want to save this picture to %1$s?</string>
+    <string name="loading_error">Loading error,tab the screen to try again</string>
 </resources>

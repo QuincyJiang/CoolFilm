@@ -14,6 +14,8 @@ import com.orhanobut.logger.LogLevel;
 import com.orhanobut.logger.Logger;
 import com.squareup.leakcanary.LeakCanary;
 import com.squareup.leakcanary.RefWatcher;
+import com.tencent.bugly.Bugly;
+import com.tencent.bugly.beta.Beta;
 
 import java.util.concurrent.TimeUnit;
 
@@ -23,6 +25,7 @@ import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 
+import static com.jiangxq.filmchina.app.Constants.APP_ID;
 import static com.jiangxq.filmchina.app.Constants.BASE_URL;
 
 
@@ -45,7 +48,7 @@ public class MyApplication extends Application {
         myApp = this;
         mRefWatcher = BuildConfig.DEBUG ?  LeakCanary.install(this) : RefWatcher.DISABLED;
         APP_PATH = getApplicationContext().getFilesDir().getAbsolutePath();
-//        initTBSx5(this);
+        initBugly();
         initJobService();
         initLogger();
         initRetrofit();
@@ -56,13 +59,15 @@ public class MyApplication extends Application {
         info = new JobInfo.Builder( 1,
                 new ComponentName(getPackageName(),
                         MyJobSchedulerService.class.getName()))
-                .setRequiredNetworkType(JobInfo.NETWORK_TYPE_ANY).build();
+                .setRequiredNetworkType(JobInfo.NETWORK_TYPE_ANY)
+                .build();
         if( mJobScheduler.schedule(info) <= 0 ) {
         }
     }
-//    private void initTBSx5(Context context) {
-//        QbSdk.initX5Environment(this,null);
-//    }
+    private void initBugly() {
+        Beta.autoCheckUpgrade = false;
+        Bugly.init(getApplicationContext(), APP_ID, BuildConfig.API_ENV);
+    }
     private void initLogger(){
         LogLevel logLevel;
         if (!BuildConfig.API_ENV){

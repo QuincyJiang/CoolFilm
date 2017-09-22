@@ -14,9 +14,10 @@ import com.jiangxq.filmchina.util.NetUtils;
 public class MyJobSchedulerService extends JobService {
     @Override
     public boolean onStartJob(JobParameters jobParameters) {
-        if(!NetUtils.isWiFi(this)){
+        if(NetUtils.isNetworkAvailable(this)&&!NetUtils.isWiFi(this)){
           Toast.makeText(this, "您正在使用流量阅读", Toast.LENGTH_SHORT).show();
-        }else if(!NetUtils.isNetworkAvailable(this)){
+        }
+        else if(!NetUtils.isNetworkAvailable(this)){
             Toast.makeText(this, "网络未连接 正在使用缓存", Toast.LENGTH_SHORT).show();
         }
         return false;

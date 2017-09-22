@@ -39,10 +39,15 @@ public class ArticalListPresenter implements ArticalListContract.Presenter{
             public void onError(Throwable e) {
                 isLoding = false;
                 view.dismissDialog();
-                if(e.getMessage().equals("HTTP 404 Not Found")){
-                    view.showNoMore();
-                }else{
-                    view.showError(e.getMessage());
+                String msg = e.getMessage();
+                if(msg!=null){
+                    if(e.getMessage().equals("HTTP 404 Not Found")){
+                        view.showNoMore();
+                    }
+                    else view.showError(e.getMessage());
+                }
+                else{
+                    view.showError("");
                 }
 //
             }

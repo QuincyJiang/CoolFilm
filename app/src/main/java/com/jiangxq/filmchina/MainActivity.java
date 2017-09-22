@@ -1,6 +1,5 @@
 package com.jiangxq.filmchina;
 
-import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
@@ -14,6 +13,7 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -28,6 +28,7 @@ import com.jiangxq.filmchina.view.fragment.ActivitiesFragment;
 import com.jiangxq.filmchina.view.fragment.LoveEquipmentFragment;
 import com.jiangxq.filmchina.view.fragment.LoveLifeFragment;
 import com.jiangxq.filmchina.view.fragment.LovePhotosFragment;
+import com.tencent.bugly.beta.Beta;
 
 import butterknife.Bind;
 
@@ -153,9 +154,13 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         } else if (id == R.id.nav_exit) {
             System.exit(0);
         } else if (id == R.id.nav_share) {
-
+            Intent intent  = new Intent();
+            intent.setAction(Intent.ACTION_SEND);
+            intent.putExtra(Intent.EXTRA_TEXT, Constants.SHARE_CONTENT);
+            intent.setType("text/plain");
+            startActivity(Intent.createChooser(intent, getString(R.string.share)));
         }else if(id == R.id.nav_update){
-
+            Beta.checkUpgrade(true,false);
         }
         drawer.closeDrawer(GravityCompat.START);
         return true;

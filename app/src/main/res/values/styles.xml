@@ -31,6 +31,7 @@
         <item name="android:windowActionBarOverlay">true</item>
         <item name="android:windowBackground">@null</item>
         <item name="metaButtonBarStyle">?android:attr/buttonBarStyle</item>
+        <item name="android:windowFullscreen">true</item>
         <item name="metaButtonBarButtonStyle">?android:attr/buttonBarButtonStyle</item>
     </style>
 
