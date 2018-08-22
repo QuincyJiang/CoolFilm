@@ -36,8 +36,7 @@ public class SlrModel extends BaseModel {
     private ArrayList<ArticaItemBean> articals = new ArrayList<ArticaItemBean>();
     private Document articalDoc;
     private Elements thumbnails;
-    private Elements titles;
-    private Elements desc;
+    private Element content;
     public SlrModel(BaseFragment context) {
         super(context);
     }
@@ -63,34 +62,19 @@ public class SlrModel extends BaseModel {
                 uri.clear();
                 try {
                     articalDoc  = Jsoup.parse(responseBody.string());
-                    thumbnails = articalDoc.getElementsByClass("entry-thumbnail entry-media-image ");
+                    thumbnails = articalDoc.getElementsByClass("post post-grid");
                     for(Element element:thumbnails){
+                        content = element.getElementsByClass("content").get(0);
                         uri.add(element.select("a").attr("href"));
                         pics.add(element.select("a").select("img").attr("src"));
-                    }
-                    titles = articalDoc.getElementsByClass("entry-title h2");
-                    for (Element element:titles){
-                        title.add(element.select("a").text());
-                    }
-                    desc = articalDoc.getElementsByTag("span");
-                    for(Element element:desc){
-                        switch (element.className()){
-                            case "author vcard":
-                                author.add(element.select("a").text());
-                                break;
-                            case "meta-date posted-on":
-                                date.add(element.select("a").select("time").text());
-                                break;
-                            case "meta-view":
-                                viewer.add(element.text());
-                                break;
-                            case "meta-comments":
-                                comment.add(element.select("a").text());
-                                break;
-                            case "dot-irecommendthis-count":
-                                like.add(element.text());
-                                break;
-                        }
+                        title.add(element.select("a").select("img").attr("alt"));
+                        if(element.select("a").select("img").attr("alt").contains("@")){
+                            author.add(element.select("a").select("img").attr("alt").split("@")[1]);
+                        }else author.add("");
+                        date.add(content.getElementsByClass("u-time").get(0).text());
+                        viewer.add(content.getElementsByClass("u-view").get(0).text());
+                        comment.add(content.getElementsByClass("u-comment").get(0).text());
+                        like.add(content.getElementsByClass("u-like").get(0).text());
                     }
                     for(int i = 0;i< pics.size();i++){
                         ArticaItemBean artical = new ArticaItemBean();
