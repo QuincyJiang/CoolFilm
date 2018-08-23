@@ -19,7 +19,6 @@ import com.jiangxq.filmchina.presenter.ArticalListPresenter;
 import com.jiangxq.filmchina.util.CustomLoadMoreView;
 import com.jiangxq.filmchina.util.Utils;
 import com.jiangxq.filmchina.view.activity.ArticalDetailActivity;
-import com.jiangxq.filmchina.view.widget.SpaceItemDecoration;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -81,11 +80,9 @@ public abstract class BaseArticalListFragment extends BaseFragment implements Ar
             if (Utils.getScreenWidthDp(getContext()) >= 1200) {
                 final GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), 3);
                 mArticalList.setLayoutManager(gridLayoutManager);
-                mArticalList.addItemDecoration(new SpaceItemDecoration(3));
             } else if (Utils.getScreenWidthDp(getContext()) >= 800) {
                 final GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), 2);
                 mArticalList.setLayoutManager(gridLayoutManager);
-                mArticalList.addItemDecoration(new SpaceItemDecoration(2));
             } else {
                 final LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
                 mArticalList.setLayoutManager(linearLayoutManager);
@@ -102,6 +99,23 @@ public abstract class BaseArticalListFragment extends BaseFragment implements Ar
                     intent.putExtra("artical",mAdapter.getData().get(position));
                     startActivity(intent);
                 }
+            });
+            mAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+                @Override
+                public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                    if(view.getId() == R.id.btn_card_main1_action1){
+                        Intent intent = new Intent(getActivity(), ArticalDetailActivity.class);
+                        intent.putExtra("artical",mAdapter.getData().get(position));
+                        startActivity(intent);
+                    }
+                    else{
+                    Intent intent  = new Intent();
+                    intent.setAction(Intent.ACTION_SEND);
+                    intent.putExtra(Intent.EXTRA_TEXT, String.format(getString(R.string.share_content),mAdapter.getData().get(position).getTitle(),
+                            mAdapter.getData().get(position).getUri()));
+                    intent.setType("text/plain");
+                    startActivity(Intent.createChooser(intent, getString(R.string.share)));
+                }}
             });
             mAdapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
                 @Override
