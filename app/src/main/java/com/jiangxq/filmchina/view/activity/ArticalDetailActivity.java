@@ -105,6 +105,7 @@ public class ArticalDetailActivity extends BaseActivity implements ArticalDetail
         errorPage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                loading.setVisibility(View.VISIBLE);
                 mPresenter.loadArtical(articalData.getUri().split("com/")[1]);
             }
         });

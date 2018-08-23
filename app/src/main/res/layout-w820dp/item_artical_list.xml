@@ -60,14 +60,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/tv_date"
-            android:padding="@dimen/text_margin_very_small">
+            >
 
-            <Button
+            <TextView
                 android:id="@+id/btn_card_main1_action1"
-                style="@style/Widget.AppCompat.Button.Borderless"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/card_button_margin"
+                android:layout_marginStart="@dimen/card_subtitle_margin"
+                android:layout_marginEnd="@dimen/card_subtitle_margin"
                 android:text="@string/read_more"
                 android:textColor="@color/colorAccent" />
 
