@@ -114,7 +114,7 @@ public abstract class BaseArticalListFragment extends BaseFragment implements Ar
                     intent.putExtra(Intent.EXTRA_TEXT, String.format(getString(R.string.share_content),mAdapter.getData().get(position).getTitle(),
                             mAdapter.getData().get(position).getUri()));
                     intent.setType("text/plain");
-                    startActivity(Intent.createChooser(intent, getString(R.string.share)));
+                    startActivity(Intent.createChooser(intent, getString(R.string.share_article)));
                 }}
             });
             mAdapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {

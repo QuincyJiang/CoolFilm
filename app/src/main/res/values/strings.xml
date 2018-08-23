@@ -33,6 +33,7 @@
     <string name="clear_cache">clear cache</string>
     <string name="exit">Exit</string>
     <string name="share">share</string>
+    <string name="share_article">share this article</string>
     <string name="update">Check update</string>
     <string name="about_title"> This application is the unofficial client of the Coofilm website. The data is analyzed from HTML, only for communication, no commercial</string>
     <string name="version">current version:</string>

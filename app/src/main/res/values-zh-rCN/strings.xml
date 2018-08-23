@@ -32,6 +32,7 @@
     <string name="clear_cache_description">是否清空缓存？缓存大小大约 %1$s </string>
     <string name="exit">退出</string>
     <string name="share">分享此应用</string>
+    <string name="share_article">分享此篇文章</string>
     <string name="update">检查更新</string>
     <string name="about_title">本应用为菲林中文的非官方客户端，数据解析自html，仅限交流，严禁任何形式商业用途。</string>
     <string name="version">当前版本：</string>

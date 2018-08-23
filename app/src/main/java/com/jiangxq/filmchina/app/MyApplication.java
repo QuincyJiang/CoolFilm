@@ -10,7 +10,7 @@ import com.jiangxq.filmchina.BuildConfig;
 import com.jiangxq.filmchina.api.ApiService;
 import com.jiangxq.filmchina.service.MyJobSchedulerService;
 import com.jiangxq.filmchina.util.CacheInterceptor;
-import com.orhanobut.logger.LogLevel;
+import com.orhanobut.logger.AndroidLogAdapter;
 import com.orhanobut.logger.Logger;
 import com.squareup.leakcanary.LeakCanary;
 import com.squareup.leakcanary.RefWatcher;
@@ -69,15 +69,7 @@ public class MyApplication extends Application {
         Bugly.init(getApplicationContext(), APP_ID, BuildConfig.API_ENV);
     }
     private void initLogger(){
-        LogLevel logLevel;
-        if (!BuildConfig.API_ENV){
-            logLevel = LogLevel.FULL;
-        }else{
-            logLevel = LogLevel.NONE;
-        }
-        Logger.init("FilmChina")
-                .methodCount(3)
-                .logLevel(logLevel);
+        Logger.addLogAdapter(new AndroidLogAdapter());
     }
     private void  initRetrofit(){
         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
