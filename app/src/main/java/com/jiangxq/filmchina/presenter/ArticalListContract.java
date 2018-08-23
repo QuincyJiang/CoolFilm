@@ -18,6 +18,7 @@ public class ArticalListContract {
         void showError(String msg);
         void showArtical(List<ArticaItemBean> articals);
         void showBanners(List<ArticaItemBean> banners);
+        void showNetworkUnAvailable();
     }
     public interface Presenter{
         void loadArtical(int page);

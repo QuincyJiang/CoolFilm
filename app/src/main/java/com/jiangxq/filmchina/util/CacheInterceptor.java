@@ -55,12 +55,5 @@ public class CacheInterceptor implements Interceptor {
                     .build();
         }
 
-//        Response response1 = response.newBuilder()
-//                .removeHeader("Pragma")
-//                .removeHeader("Cache-Control")
-//                /**关闭cache*/
-//                .addHeader("Cache-Control", "max-age=" + 3600 * 24 * 30)
-//                .build();
-//        return response1;
     }
 }

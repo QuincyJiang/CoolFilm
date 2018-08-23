@@ -3,6 +3,7 @@ package com.jiangxq.filmchina.presenter;
 import com.jiangxq.filmchina.base.BaseModel;
 import com.jiangxq.filmchina.model.bean.ArticaItemBean;
 
+import java.net.UnknownHostException;
 import java.util.List;
 
 import rx.Observer;
@@ -43,6 +44,9 @@ public class ArticalListPresenter implements ArticalListContract.Presenter{
                 if(msg!=null){
                     if(e.getMessage().equals("HTTP 404 Not Found")){
                         view.showNoMore();
+                    }
+                    else if(e instanceof UnknownHostException){
+                        view.showNetworkUnAvailable();
                     }
                     else view.showError(e.getMessage());
                 }

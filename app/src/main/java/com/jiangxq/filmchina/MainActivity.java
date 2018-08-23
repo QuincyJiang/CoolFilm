@@ -12,9 +12,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -26,7 +24,6 @@ import com.jiangxq.filmchina.util.DataCleanerManager;
 import com.jiangxq.filmchina.view.activity.AboutActivity;
 import com.jiangxq.filmchina.view.fragment.ActivitiesFragment;
 import com.jiangxq.filmchina.view.fragment.LoveEquipmentFragment;
-import com.jiangxq.filmchina.view.fragment.LoveLifeFragment;
 import com.jiangxq.filmchina.view.fragment.LovePhotosFragment;
 import com.tencent.bugly.beta.Beta;
 
@@ -39,10 +36,11 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     BottomNavigationView navigation;
     @Bind(R.id.drawer_layout)
     DrawerLayout drawer;
-    @Bind(R.id.toolbar)
-    Toolbar toolbar;
+//    @Bind(R.id.toolbar)
+//    Toolbar toolbar;
     @Bind(R.id.nav_view)
     NavigationView navigationView;
+    private android.app.AlertDialog dailog;
 
     @Override
     protected int getView() {
@@ -52,13 +50,13 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     @Override
     protected void initView() {
         super.initView();
-        toolbar.setTitle(R.string.app_name);
-        toolbar.setTitleTextColor(getResources().getColor(R.color.black));
-        setSupportActionBar(toolbar);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.setDrawerListener(toggle);
-        toggle.syncState();
+//        toolbar.setTitle(R.string.app_name);
+//        toolbar.setTitleTextColor(getResources().getColor(R.color.black));
+//        setSupportActionBar(toolbar);
+//        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+//                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+//        drawer.setDrawerListener(toggle);
+//        toggle.syncState();
         SectionsPagerAdapter mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
         mViewPager.setAdapter(mSectionsPagerAdapter);
         mViewPager.addOnPageChangeListener(pageChangeListener);
@@ -94,10 +92,10 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
                     navigation.setSelectedItemId(R.id.bottom_love_equipment);
                     break;
                 case 2:
-                    navigation.setSelectedItemId(R.id.bottom_love_life);
-                    break;
-                case 3:
                     navigation.setSelectedItemId(R.id.bottom_activities);
+                    break;
+//                case 3:
+//                    navigation.setSelectedItemId(R.id.bottom_activities);
             }
         }
 
@@ -116,11 +114,11 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
                 case R.id.bottom_love_equipment:
                     mViewPager.setCurrentItem(1);
                     return true;
-                case R.id.bottom_love_life:
-                    mViewPager.setCurrentItem(2);
-                    return true;
+//                case R.id.bottom_love_life:
+//                    mViewPager.setCurrentItem(2);
+//                    return true;
                 case R.id.bottom_activities:
-                    mViewPager.setCurrentItem(3);
+                    mViewPager.setCurrentItem(2);
                     return true;
             }
             return false;
@@ -217,18 +215,37 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
                 case 1:
                     return new LoveEquipmentFragment();
                 case 2:
-                    return new LoveLifeFragment();
-                case 3:
                     return new ActivitiesFragment();
+//                case 3:
+//                    return new ActivitiesFragment();
                 default:return new LovePhotosFragment();
             }
         }
 
         @Override
         public int getCount() {
-            return 4;
+            return 3;
         }
 
+    }
+
+    public void showDialog(String msg){
+        if(dailog==null){
+            dailog = new android.app.AlertDialog.Builder(this)
+                    .setTitle(getString(R.string.error_title))
+                    .setMessage(getString(R.string.error_content)+msg)
+                    .setPositiveButton(getString(R.string.confirm), null)
+                    .setNegativeButton(getString(R.string.cancel), null)
+                    .show();
+        }else dailog.show();
+    }
+
+    public void dismissDialog(){
+        if(dailog!=null){
+            if(dailog.isShowing()){
+                dailog.dismiss();
+            }
+        }
     }
 
 }

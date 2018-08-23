@@ -1,12 +1,13 @@
 package com.jiangxq.filmchina.base;
 
-import android.app.AlertDialog;
 import android.content.Intent;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -18,6 +19,7 @@ import com.jiangxq.filmchina.presenter.ArticalListPresenter;
 import com.jiangxq.filmchina.util.CustomLoadMoreView;
 import com.jiangxq.filmchina.util.Utils;
 import com.jiangxq.filmchina.view.activity.ArticalDetailActivity;
+import com.jiangxq.filmchina.view.widget.SpaceItemDecoration;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,16 +36,20 @@ import static android.support.v7.widget.RecyclerView.SCROLL_STATE_SETTLING;
 
 public abstract class BaseArticalListFragment extends BaseFragment implements ArticalListContract.View {
         @Bind(R.id.rv_artical_list)
-        RecyclerView articalList;
+        RecyclerView mArticalList;
         @Bind(R.id.sr_refresh)
         SwipeRefreshLayout refresh;
+        @Bind(R.id.iv_status)
+        ImageView mStatusImage;
+        @Bind(R.id.tv_status_description)
+        TextView mStatusDescription;
         private ArticalListAdapter mAdapter;
         private ArticalListPresenter mPresenter;
         private int mPage = 1;
         private List<ArticaItemBean> articalsItem = new ArrayList<>();
         private Boolean isErr = false;
         private int mCurrentCounter;
-        private AlertDialog dailog;
+
 
 
         @Override
@@ -61,26 +67,28 @@ public abstract class BaseArticalListFragment extends BaseFragment implements Ar
             initRecyclerView();
             initAdapter();
             mPage = 1;
-            articalList.setAdapter(mAdapter);
+            mArticalList.setAdapter(mAdapter);
             initListener();
+            mPresenter.loadArtical(mPage);
         }
 
         @Override
         public void onResume() {
             super.onResume();
-            mPresenter.loadArtical(mPage);
         }
 
         private void initRecyclerView(){
             if (Utils.getScreenWidthDp(getContext()) >= 1200) {
                 final GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), 3);
-                articalList.setLayoutManager(gridLayoutManager);
+                mArticalList.setLayoutManager(gridLayoutManager);
+                mArticalList.addItemDecoration(new SpaceItemDecoration(3));
             } else if (Utils.getScreenWidthDp(getContext()) >= 800) {
                 final GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), 2);
-                articalList.setLayoutManager(gridLayoutManager);
+                mArticalList.setLayoutManager(gridLayoutManager);
+                mArticalList.addItemDecoration(new SpaceItemDecoration(2));
             } else {
                 final LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
-                articalList.setLayoutManager(linearLayoutManager);
+                mArticalList.setLayoutManager(linearLayoutManager);
             }
         }
         private void initAdapter(){
@@ -100,7 +108,7 @@ public abstract class BaseArticalListFragment extends BaseFragment implements Ar
                 public void onLoadMoreRequested() {
                     mPresenter.loadArtical(mPage);
 
-                }},articalList);
+                }},mArticalList);
         }
         private void initListener(){
             refresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -116,11 +124,12 @@ public abstract class BaseArticalListFragment extends BaseFragment implements Ar
                     }
                 }
             });
-            articalList.addOnScrollListener(scrollListener);
+            mArticalList.addOnScrollListener(scrollListener);
         }
 
         @Override
         public void showArtical(List<ArticaItemBean> articals) {
+            dismissErrorPage();
             if(refresh.isRefreshing()){
                 refresh.setRefreshing(false);
             }
@@ -159,19 +168,27 @@ public abstract class BaseArticalListFragment extends BaseFragment implements Ar
             mAdapter.loadMoreFail();
             if(refresh.isRefreshing()){
                 refresh.setRefreshing(false);}
-            if(dailog==null){
-                dailog = new AlertDialog.Builder(getContext())
-                        .setTitle(getString(R.string.error_title))
-                        .setMessage(getString(R.string.error_content)+msg)
-                        .setPositiveButton(getString(R.string.confirm), null)
-                        .setNegativeButton(getString(R.string.cancel), null)
-                        .show();
-            }else dailog.show();
+//            ((MainActivity)getActivity()).showDialog(msg);
+           showErrorPage(msg);
+        }
+
+        public void showErrorPage(String msg){
+            mArticalList.setVisibility(View.GONE);
+            mStatusImage.setVisibility(View.VISIBLE);
+            mStatusImage.setImageResource(R.drawable.ic_fail);
+            mStatusDescription.setVisibility(View.VISIBLE);
+            mStatusDescription.setText(msg);
+        }
+        public void dismissErrorPage(){
+            mArticalList.setVisibility(View.VISIBLE);
+            mStatusImage.setVisibility(View.GONE);
+            mStatusDescription.setVisibility(View.GONE);
         }
 
 
         @Override
         public void dismissLoading() {
+            dismissErrorPage();
             if (refresh.isRefreshing()) {
                 refresh.setRefreshing(false);
             }
@@ -179,15 +196,13 @@ public abstract class BaseArticalListFragment extends BaseFragment implements Ar
 
         @Override
         public void dismissDialog() {
-            if(dailog!=null){
-                if(dailog.isShowing()){
-                    dailog.dismiss();
-                }
-            }
+//            ((MainActivity)getActivity()).dismissDialog();
+            dismissErrorPage();
         }
 
         @Override
         public void showNoMore() {
+            dismissErrorPage();
             if(refresh.isRefreshing()){
                 refresh.setRefreshing(false);}
             mAdapter.loadMoreEnd();
@@ -195,12 +210,25 @@ public abstract class BaseArticalListFragment extends BaseFragment implements Ar
 
         @Override
         public void showLoading() {
+            dismissErrorPage();
             if(!refresh.isRefreshing()){
                 refresh.setRefreshing(true);
             }
         }
 
-        RecyclerView.OnScrollListener scrollListener = new RecyclerView.OnScrollListener() {
+    @Override
+    public void showNetworkUnAvailable() {
+            if(refresh.isRefreshing()){
+                refresh.setRefreshing(false);
+            }
+        mArticalList.setVisibility(View.GONE);
+        mStatusImage.setVisibility(View.VISIBLE);
+        mStatusImage.setImageResource(R.drawable.ic_no_wifi);
+        mStatusDescription.setVisibility(View.VISIBLE);
+        mStatusDescription.setText(R.string.network_unavailable);
+    }
+
+    RecyclerView.OnScrollListener scrollListener = new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);

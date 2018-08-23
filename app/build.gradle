@@ -1,5 +1,40 @@
 apply plugin: 'com.android.application'
 
+def getGitTag = {->
+    def cmd = "git describe --tags --abbrev=0"
+    return cmd.execute().text.trim()
+}
+
+
+def getVersionTag = { ->
+    def tag = getGitTag()
+    if(tag.startsWith("v") || tag.startsWith("V")){
+        tag = tag.substring(1)
+    }
+    if(tag == null || tag.equals("")){
+        tag = "1.0"
+    }
+    return tag
+}
+def getVersionCode = {->
+    def cmd = "git rev-list HEAD --first-parent --count"
+    return cmd.execute().text.trim().toInteger()
+}
+
+
+// versionName 增加最后一笔提交code 方便回滚定位问题
+def getVersionName = { ->
+
+    def cmd = "git rev-parse --short HEAD"
+    def commit = cmd.execute().text.trim().toString()
+    return getVersionTag()+"."+getVersionCode()+"-"+commit
+}
+
+
+def buildTime(){
+    return new Date().format("yyyy-MM-dd")
+}
+
 android {
     compileSdkVersion 26
     buildToolsVersion "26.0.1"
@@ -7,8 +42,8 @@ android {
         applicationId "com.jiangxq.filmchina"
         minSdkVersion 21
         targetSdkVersion 26
-        versionCode 3
-        versionName "1.0.2"
+        versionCode getVersionCode()
+        versionName getVersionName()
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -22,10 +57,26 @@ android {
             minifyEnabled false
         }
     }
+    productFlavors {
+        KuAn {
+            versionName = getVersionName()
+        }
+    }
     repositories{
         flatDir {
             dirs 'libs'
         }
+    }
+    android.applicationVariants.all{ variant ->
+        variant.outputs.each {output ->
+            def outputFile = output.outputFile
+            if(outputFile !=null && outputFile.name.endsWith('.apk')){
+                def fileName = "coolFilm-${variant.productFlavors[0].name}-${variant.buildType.getName()}-${variant.productFlavors[0].properties.get("versionName")}-${buildTime()}.apk"
+                output.outputFile = new File(project.rootDir.absolutePath+"/apks",fileName)
+            }
+
+        }
+
     }
 }
 

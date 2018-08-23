@@ -48,6 +48,7 @@
     <string name="save_pic_title">保存图片</string>
     <string name="save_pic_content">要保存此图片到%1$s吗？</string>
     <string name="loading_error">加载失败，点击屏幕重新加载</string>
+    <string name="network_unavailable">网络异常，请检查网络连接</string>
 
 
 </resources>

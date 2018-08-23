@@ -1,23 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:toos="http://schemas.android.com/tools"
+    android:id="@+id/sr_refresh"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior">
+<RelativeLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
-    <android.support.v4.widget.SwipeRefreshLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/sr_refresh"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        >
-
 <android.support.v7.widget.RecyclerView
     android:id="@+id/rv_artical_list"
-    android:visibility="visible"
+    android:visibility="gone"
     android:layout_width="match_parent"
     android:layout_height="match_parent" />
-
-
+    <ImageView
+        android:visibility="visible"
+        android:id="@+id/iv_status"
+        android:layout_centerInParent="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_no_wifi"/>
+  <TextView
+      android:visibility="gone"
+      android:textSize="@dimen/defaultMenuTextSize"
+      android:layout_below="@id/iv_status"
+      android:id="@+id/tv_status_description"
+      android:layout_margin="@dimen/text_margin"
+      android:gravity="center"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      toos:text="网络暂不可用"/>
+</RelativeLayout>
     </android.support.v4.widget.SwipeRefreshLayout>
-</LinearLayout>

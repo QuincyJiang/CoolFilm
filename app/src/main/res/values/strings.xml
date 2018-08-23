@@ -48,4 +48,5 @@
     <string name="save_pic_title">Save picture</string>
     <string name="save_pic_content">Want to save this picture to %1$s?</string>
     <string name="loading_error">Loading error,tab the screen to try again</string>
+    <string name="network_unavailable">Network exception, please check network connection</string>
 </resources>

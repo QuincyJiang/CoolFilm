@@ -62,19 +62,18 @@ public class TechModel extends BaseModel {
                 uri.clear();
                 try {
                     articalDoc  = Jsoup.parse(responseBody.string());
-                    thumbnails = articalDoc.getElementsByClass("post post-grid");
+                    thumbnails = articalDoc.getElementsByTag("article");
                     for(Element element:thumbnails){
+                        pics.add(element.getElementsByTag("div").get(0).getElementsByTag("a").get(0).getElementsByTag("img").get(0).attr("src"));
                         content = element.getElementsByClass("content").get(0);
-                        uri.add(element.select("a").attr("href"));
-                        pics.add(element.select("a").select("img").attr("src"));
-                        title.add(element.select("a").select("img").attr("alt"));
-                        if(element.select("a").select("img").attr("alt").contains("@")){
-                            author.add(element.select("a").select("img").attr("alt").split("@")[1]);
-                        }else author.add("");
-                        date.add(content.getElementsByClass("u-time").get(0).text());
-                        viewer.add(content.getElementsByClass("u-view").get(0).text());
-                        comment.add(content.getElementsByClass("u-comment").get(0).text());
-                        like.add(content.getElementsByClass("u-like").get(0).text());
+
+                        uri.add(content.getElementsByTag("div").get(0).getElementsByTag("h2").get(0).getElementsByTag("a").get(0).attr("href"));
+                        title.add(content.getElementsByTag("div").get(0).getElementsByTag("h2").get(0).getElementsByTag("a").get(0).text());
+                        author.add("");
+                        date.add(content.getElementsByClass("data").get(0).getElementsByTag("span").get(0).text());
+                        viewer.add(content.getElementsByClass("data").get(0).getElementsByTag("span").get(1).text());
+                        comment.add(content.getElementsByClass("data").get(0).getElementsByTag("span").get(2).text());
+                        like.add(content.getElementsByClass("data").get(0).getElementsByTag("span").get(3).text());
                     }
                     for(int i = 0;i< pics.size();i++){
                         ArticaItemBean artical = new ArticaItemBean();
