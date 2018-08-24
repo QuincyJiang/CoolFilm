@@ -49,6 +49,7 @@ public class ArticalDetailModel {
                     articalDoc.getElementsByClass("breadcrumbs hidden-xs").remove();
                     articalDoc.getElementsByClass("nt_search_inner nt_search_inner_down hidden-xs").remove();
                     articalDoc.getElementsByClass("nt-header navbar mobile-style02").remove();
+                    articalDoc.getElementsByClass("mobile-navbar row hidden-md hidden-lg").remove();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
