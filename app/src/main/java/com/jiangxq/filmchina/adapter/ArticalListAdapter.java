@@ -23,14 +23,14 @@ public class ArticalListAdapter extends BaseQuickAdapter<ArticaItemBean,BaseView
     }
     @Override
     protected void convert(BaseViewHolder helper, ArticaItemBean item) {
-        helper.setText(R.id.tv_card_author,item.getAuthor());
+//        helper.setText(R.id.tv_card_author,item.getAuthor());
         helper.setText(R.id.tv_main_card2_view,item.getViewer());
         helper.setText(R.id.tv_main_card2_like,item.getLike());
         helper.setText(R.id.tv_card_main_1_title,item.getTitle());
         helper.setText(R.id.tv_main_card2_comment,item.getComment());
         helper.setText(R.id.tv_date,item.getDate());
-        helper.addOnClickListener(R.id.img_main_card2_share);
-        helper.addOnClickListener(R.id.btn_card_main1_action1);
+//        helper.addOnClickListener(R.id.img_main_card2_share);
+//        helper.addOnClickListener(R.id.btn_card_main1_action1);
         Glide.with(mContext).load(item.getPic()).crossFade().into((ImageView) helper.getView(R.id.img_main_card_1));
 
     }

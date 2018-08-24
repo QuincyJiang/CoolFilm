@@ -100,23 +100,6 @@ public abstract class BaseArticalListFragment extends BaseFragment implements Ar
                     startActivity(intent);
                 }
             });
-            mAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
-                @Override
-                public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-                    if(view.getId() == R.id.btn_card_main1_action1){
-                        Intent intent = new Intent(getActivity(), ArticalDetailActivity.class);
-                        intent.putExtra("artical",mAdapter.getData().get(position));
-                        startActivity(intent);
-                    }
-                    else{
-                    Intent intent  = new Intent();
-                    intent.setAction(Intent.ACTION_SEND);
-                    intent.putExtra(Intent.EXTRA_TEXT, String.format(getString(R.string.share_content),mAdapter.getData().get(position).getTitle(),
-                            mAdapter.getData().get(position).getUri()));
-                    intent.setType("text/plain");
-                    startActivity(Intent.createChooser(intent, getString(R.string.share_article)));
-                }}
-            });
             mAdapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
                 @Override
                 public void onLoadMoreRequested() {

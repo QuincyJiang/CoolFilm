@@ -2,6 +2,7 @@ package com.jiangxq.filmchina.view.activity;
 
 import android.Manifest;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.AsyncTask;
@@ -9,6 +10,8 @@ import android.os.Environment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
@@ -64,7 +67,6 @@ public class ArticalDetailActivity extends BaseActivity implements ArticalDetail
 
     private ArticaItemBean articalData;
     private WebView articalContent;
-//    private ProgressDialog progressDialog;
     private ArticalDetailPresenter mPresenter;
     private static String imgUrl;
     private ItemOnLongClickedPopWindow itemLongClickedPopWindow;
@@ -113,6 +115,28 @@ public class ArticalDetailActivity extends BaseActivity implements ArticalDetail
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.activity_main1,menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if(item.getItemId() == R.id.action_share){
+            if(articalData!=null){
+            Intent intent  = new Intent();
+            intent.setAction(Intent.ACTION_SEND);
+            intent.putExtra(Intent.EXTRA_TEXT, String.format(getString(R.string.share_content),articalData.getTitle(),
+                    articalData.getUri()));
+            intent.setType("text/plain");
+            startActivity(Intent.createChooser(intent, getString(R.string.share_article)));
+            return true;
+        }
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
     protected void initData() {
         super.initData();
         rxPermissions = new RxPermissions(this);
@@ -123,9 +147,6 @@ public class ArticalDetailActivity extends BaseActivity implements ArticalDetail
 
     @Override
     public void dismissLoading() {
-//        if(progressDialog !=null&& progressDialog.isShowing()){
-//            progressDialog.dismiss();
-//        }
         if(errorPage!=null&&loading!=null){
             loading.setVisibility(GONE);
             errorPage.setVisibility(GONE);
@@ -210,13 +231,6 @@ public class ArticalDetailActivity extends BaseActivity implements ArticalDetail
 
     @Override
     public void showLoading() {
-//        if(progressDialog ==null){
-//            progressDialog = new ProgressDialog(this);
-//        }
-//        progressDialog.setMessage(getString(R.string.loading));
-//        if(!progressDialog.isShowing()){
-//            progressDialog.show();
-//        }
         if(errorPage!=null&&loading!=null){
             loading.setVisibility(View.VISIBLE);
             errorPage.setVisibility(GONE);
