@@ -44,11 +44,11 @@ public class ArticalDetailModel {
             public String call(ResponseBody responseBody) {
                 try {
                     articalDoc = Jsoup.parse(responseBody.byteStream(),"UTF-8",BASE_URL_NO_SLASH);
-                    articalDoc.getElementsByClass("site-header site-header__default").remove();
-                    articalDoc.getElementsByClass("meta-share").remove();
-                    articalDoc.getElementsByClass("entry-footer-section").remove();
-                    articalDoc.getElementsByClass("col-md-4").remove();
-                    articalDoc.getElementsByClass("footer-social").remove();
+                    articalDoc.getElementsByClass("l-sidebar col-xs-12 col-sm-4 col-md-3 hidden-xs").remove();
+                    articalDoc.getElementsByClass("footer-main footer-2 footer-black").remove();
+                    articalDoc.getElementsByClass("breadcrumbs hidden-xs").remove();
+                    articalDoc.getElementsByClass("nt_search_inner nt_search_inner_down hidden-xs").remove();
+                    articalDoc.getElementsByClass("nt-header navbar mobile-style02").remove();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
