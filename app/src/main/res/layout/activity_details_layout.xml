@@ -9,27 +9,87 @@
     <android.support.design.widget.AppBarLayout
         android:id="@+id/app_bar_scrolling"
         android:layout_width="match_parent"
+        android:layout_height="200dp"
+        >
+        <android.support.design.widget.CollapsingToolbarLayout
+            android:id="@+id/collapsing_toolbar_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:contentScrim="@color/white"
+            app:expandedTitleMarginEnd="10dp"
+            app:expandedTitleMarginStart="@dimen/card_subtitle_margin"
+            app:collapsedTitleTextAppearance="@style/TextAppearance.AppCompat.Title"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed">
+<LinearLayout
+    android:layout_marginTop="40dp"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <TextView
+        android:text="菲林中文网"
+        android:id="@+id/tv_detail_title"
+        style="@style/TextAppearance.AppCompat.Large"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:theme="@style/AppTheme.AppBarOverlay">
-
-            <android.support.v7.widget.Toolbar
-                android:id="@+id/toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                app:layout_collapseMode="pin"
-                app:theme="@style/ToolbarTheme"
-                app:popupTheme="@style/AppTheme.PopupOverlay" />
-    </android.support.design.widget.AppBarLayout>
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab_scrolling"
+        android:layout_marginEnd="@dimen/card_title_margin"
+        android:layout_marginStart="@dimen/card_title_margin"
+        android:layout_marginTop="@dimen/text_margin_very_small"
+        android:textColor="@color/finestBlack" />
+    <TextView
+        android:text="www.coofilm.com"
+        android:id="@+id/tv_detail_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/big_activity_fab_margin"
-        android:src="@drawable/ic_share_white_24dp"
-        app:layout_anchor="@id/app_bar_scrolling"
-        app:layout_anchorGravity="bottom|end"
-        app:backgroundTint="@color/white"/>
+        android:layout_marginBottom="@dimen/card_subtitle_margin"
+        android:layout_marginEnd="@dimen/card_subtitle_margin"
+        android:layout_marginStart="@dimen/card_subtitle_margin"
+        android:layout_marginTop="@dimen/card_button_margin"
+        />
+</LinearLayout>
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:layout_collapseMode="pin"
+            app:theme="@style/ToolbarTheme"
+            app:popupTheme="@style/AppTheme.PopupOverlay" />
+    </android.support.design.widget.CollapsingToolbarLayout>
 
+    </android.support.design.widget.AppBarLayout>
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        android:id="@+id/fl_loading"
+        >
+        <ProgressBar
+            android:id="@+id/pb_loading"
+            android:layout_gravity="center"
+            android:layout_width="@dimen/big_activity_margin_vertical"
+            android:layout_height="@dimen/big_activity_margin_vertical"
+            />
+    </FrameLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        android:id="@+id/rl_error"
+        >
+        <ImageView
+            android:id="@+id/iv_error_page"
+            android:layout_width="@dimen/start_page_image_size"
+            android:layout_height="@dimen/start_page_image_size"
+            android:layout_centerInParent="true"
+            android:background="@drawable/ic_fail"/>
+        <TextView
+            tools:text="something went wrong"
+            android:layout_below="@id/iv_error_page"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/btn_margin"
+            android:gravity="center"
+            android:text="@string/loading_error"/>
+    </RelativeLayout>
     <include layout="@layout/content_scrolling" />
 
 </android.support.design.widget.CoordinatorLayout>

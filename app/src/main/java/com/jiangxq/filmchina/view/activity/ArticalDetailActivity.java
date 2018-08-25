@@ -22,6 +22,7 @@ import android.webkit.WebViewClient;
 import android.widget.FrameLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.jiangxq.filmchina.R;
@@ -31,6 +32,7 @@ import com.jiangxq.filmchina.presenter.ArticalDetailContract;
 import com.jiangxq.filmchina.presenter.ArticalDetailPresenter;
 import com.jiangxq.filmchina.util.DensityUtils;
 import com.jiangxq.filmchina.view.widget.ItemOnLongClickedPopWindow;
+import com.jiangxq.filmchina.view.widget.NestedScrollWebView;
 import com.tbruyelle.rxpermissions.RxPermissions;
 
 import java.io.File;
@@ -64,9 +66,13 @@ public class ArticalDetailActivity extends BaseActivity implements ArticalDetail
     ProgressBar progressBar;
     @Bind(R.id.rl_error)
     RelativeLayout errorPage;
+    @Bind(R.id.tv_detail_date)
+    TextView mDate;
+    @Bind(R.id.tv_detail_title)
+    TextView mTitle;
 
     private ArticaItemBean articalData;
-    private WebView articalContent;
+    private NestedScrollWebView articalContent;
     private ArticalDetailPresenter mPresenter;
     private static String imgUrl;
     private ItemOnLongClickedPopWindow itemLongClickedPopWindow;
@@ -101,7 +107,7 @@ public class ArticalDetailActivity extends BaseActivity implements ArticalDetail
             progressBar.getIndeterminateDrawable().setColorFilter(Color.BLACK,MULTIPLY);
         }
         if(articalContent==null){
-            articalContent = new WebView(this);
+            articalContent = new NestedScrollWebView(this);
         }
         initWebView();
         errorPage.setOnClickListener(new View.OnClickListener() {
@@ -142,6 +148,8 @@ public class ArticalDetailActivity extends BaseActivity implements ArticalDetail
         rxPermissions = new RxPermissions(this);
         mPresenter = new ArticalDetailPresenter(this,this);
         articalData = (ArticaItemBean)getIntent().getSerializableExtra("artical");
+        mDate.setText(articalData.getDate());
+        mTitle.setText(articalData.getTitle());
         mPresenter.loadArtical(articalData.getUri().split("com/")[1]);
     }
 
