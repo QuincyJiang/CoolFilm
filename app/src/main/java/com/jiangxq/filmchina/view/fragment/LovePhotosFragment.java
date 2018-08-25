@@ -22,7 +22,7 @@ public class LovePhotosFragment extends BaseFragment {
     ViewPager mViewPager;
     @Override
     protected int getLayout() {
-        return R.layout.activity_love_equipment_layout;
+        return R.layout.activity_tab_layout;
     }
 
     @Override

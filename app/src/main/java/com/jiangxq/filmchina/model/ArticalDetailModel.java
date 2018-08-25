@@ -51,6 +51,8 @@ public class ArticalDetailModel {
                     articalDoc.getElementsByClass("nt-header navbar mobile-style02").remove();
                     articalDoc.getElementsByClass("mobile-navbar row hidden-md hidden-lg").remove();
                     articalDoc.getElementsByClass("suxing post-cover").remove();
+                    articalDoc.getElementsByClass("post-footer clearfix").remove();
+                    articalDoc.getElementsByClass("post-navigation").remove();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

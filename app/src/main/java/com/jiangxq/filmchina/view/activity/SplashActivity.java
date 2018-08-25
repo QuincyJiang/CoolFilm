@@ -6,6 +6,7 @@ import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
 import com.jiangxq.filmchina.MainActivity;
 import com.jiangxq.filmchina.R;
 import com.jiangxq.filmchina.base.BaseActivity;
@@ -27,7 +28,7 @@ public class SplashActivity extends BaseActivity{
     @Override
     protected void initView() {
         super.initView();
-//        Glide.with(this).load(R.drawable.splash).into(imageView);
+        Glide.with(this).load(R.drawable.splash).centerCrop().into(imageView);
         new Handler().postDelayed(new Runnable(){
             public void run() {
                 Intent intent = new Intent(SplashActivity.this, MainActivity.class);
