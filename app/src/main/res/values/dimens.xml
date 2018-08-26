@@ -39,5 +39,6 @@
     <dimen name="big_activity_margin_horizontal">72dp</dimen>
     <dimen name="big_activity_fab_margin">16dp</dimen>
     <dimen name="big_activity_text_margin">16dp</dimen>
+    <dimen name="details_activity_title_height">200dp</dimen>
 
 </resources>

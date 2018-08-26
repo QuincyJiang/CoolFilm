@@ -1,0 +1,5 @@
+<resources>
+
+    <dimen name="details_activity_title_height">230dp</dimen>
+
+</resources>

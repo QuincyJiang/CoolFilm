@@ -9,7 +9,7 @@
     <android.support.design.widget.AppBarLayout
         android:id="@+id/app_bar_scrolling"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="@dimen/details_activity_title_height"
         >
         <android.support.design.widget.CollapsingToolbarLayout
             android:id="@+id/collapsing_toolbar_layout"

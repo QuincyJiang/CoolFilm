@@ -246,6 +246,7 @@ public class ArticalDetailActivity extends BaseActivity implements ArticalDetail
         webViewContainer.setVisibility(View.INVISIBLE);
     }
     private void initWebView(){
+        articalContent.setNestedScrollingEnabled(false);
         webViewContainer.addView(articalContent);
         WebSettings settings = articalContent.getSettings();
         settings.setAllowFileAccess(true);
