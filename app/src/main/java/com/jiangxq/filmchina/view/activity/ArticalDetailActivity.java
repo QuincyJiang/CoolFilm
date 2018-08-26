@@ -159,6 +159,7 @@ public class ArticalDetailActivity extends BaseActivity implements ArticalDetail
             loading.setVisibility(GONE);
             errorPage.setVisibility(GONE);
         }
+        if(webViewContainer!=null)
         webViewContainer.setVisibility(View.VISIBLE);
     }
 

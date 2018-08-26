@@ -28,6 +28,8 @@
     <TextView
         android:text="菲林中文网"
         android:id="@+id/tv_detail_title"
+        android:maxLines="2"
+        android:ellipsize="end"
         style="@style/TextAppearance.AppCompat.Large"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
